@@ -15,7 +15,6 @@ import {
   setDoc,
   WhereFilterOp,
   where,
-  initializeFirestore,
 } from "firebase/firestore";
 import { app } from "../config/app";
 
@@ -27,10 +26,7 @@ export interface Filtro {
 
 export default class Colecao {
   async salvar(caminho: string, entidade: any, id?: string): Promise<any> {
-    // const db = getFirestore(app);
-    const db = initializeFirestore(app, {
-      experimentalAutoDetectLongPolling: true,
-    });
+    const db = getFirestore(app);
     const idFinal = id ?? entidade.id ?? Id.novo();
     const docRef = doc(db, caminho, idFinal);
     await setDoc(docRef, entidade);
